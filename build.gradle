@@ -26,6 +26,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'tk.mybatis:mapper-spring-boot-starter:2.1.5'
+    implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:1.2.10'
     runtimeOnly 'mysql:mysql-connector-java:8.0.11'
     compile 'org.projectlombok:lombok:1.18.10'
     annotationProcessor 'org.projectlombok:lombok:1.18.10'

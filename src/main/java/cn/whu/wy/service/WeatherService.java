@@ -2,6 +2,7 @@ package cn.whu.wy.service;
 
 import cn.whu.wy.entity.Weather;
 import cn.whu.wy.mapper.IWeatherMapper;
+import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,11 @@ public class WeatherService {
     }
 
     public List<Weather> showAll() {
+        return weatherMapper.selectAll();
+    }
+
+    public List<Weather> show(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return weatherMapper.selectAll();
     }
 

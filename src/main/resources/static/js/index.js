@@ -1,5 +1,25 @@
 $(function() {
 
+    $(".nextPageBtn").click(function () {
+        var jobId = $(this).parent().data("id");
+        $.ajax({
+            url: "/api/runJob?t=" + new Date().getTime(),
+            type: "POST",
+            data: {
+                "jobName": $("#name_" + jobId).text(),
+                // "jobGroup": $("#group_"+jobId).text()
+            },
+            dataType: "JSON",
+            success: function (ret) {
+                if (ret.valid) {
+                    alert("run success!--");
+                } else {
+                    alert(ret.msg);
+                }
+            }
+        });
+    });
+
 	//run job once
     $(".btnRun").click(function() {
         alert("click!");

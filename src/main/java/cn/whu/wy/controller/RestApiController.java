@@ -4,29 +4,28 @@ import cn.whu.wy.entity.Weather;
 import cn.whu.wy.service.WeatherService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author WangYong
- * @Date 2020/05/28
- * @Time 10:48
+ * @Date 2020/05/29
+ * @Time 11:09
  */
-@Controller
+@RestController
 @Slf4j
-public class IndexController {
+@RequestMapping("/api")
+public class RestApiController {
+
     @Autowired
     private WeatherService weatherService;
 
-
-    @GetMapping("/")
-    public String index(Model model) {
-        model.addAttribute("weathers", weatherService.showAll());
-        return "index";
-    }
-
-
+    /**
+     * Request: http://127.0.0.1:10086/api/query?city=重庆
+     * Response: json
+     *
+     * @param city
+     * @return
+     */
     @GetMapping("/query")
     public Object query(@RequestParam String city) {
         return weatherService.query(city);
@@ -41,5 +40,4 @@ public class IndexController {
     public void edit(@RequestBody Weather weather) {
         weatherService.edit(weather);
     }
-
 }
