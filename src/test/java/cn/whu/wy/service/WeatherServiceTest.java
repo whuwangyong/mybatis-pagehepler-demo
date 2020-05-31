@@ -5,19 +5,16 @@ import cn.whu.wy.mapper.IWeatherMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @Author WangYong
@@ -45,7 +42,7 @@ public class WeatherServiceTest {
     public void init() {
         MockitoAnnotations.initMocks(this);
         rand = new Random();
-        clear();
+//        clear();
     }
 
     private void clear() {
@@ -55,7 +52,7 @@ public class WeatherServiceTest {
         assertEquals(0, weatherMapper.selectAll().size());
     }
 
-    @Test
+    //    @Test
     public void add() {
         LocalDate from = LocalDate.of(2020, 1, 1);
         Weather weather = new Weather();
@@ -72,5 +69,11 @@ public class WeatherServiceTest {
         }
 
         assertEquals(120, weatherMapper.selectAll().size());
+    }
+
+    @Test
+    public void testExample() {
+        List<Weather> weathers = weatherMapper.select(null, null, null);
+        assertEquals(120, weathers.size());
     }
 }

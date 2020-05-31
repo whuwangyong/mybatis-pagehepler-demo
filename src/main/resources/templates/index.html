@@ -34,7 +34,7 @@
     <script type="application/javascript" th:src="@{/js/jquery.min.js}"></script>
     <script type="application/javascript" th:src="@{/js/bootstrap.min.js}"></script>
     <script type="application/javascript" th:src="@{/js/bootstrap-select.min.js}"></script>
-    <!--<script type="application/javascript" th:src="@{/js/index.js}"></script>-->
+    <script type="application/javascript" th:src="@{/js/index.js}"></script>
 
 </head>
 <body>
@@ -62,7 +62,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="item,itemStat:${weathers}">
+        <tr th:each="item,itemStat:${pageInfo.list}">
             <td th:text="${itemStat.index+1}"></td>
             <td th:id="id_+${item.id}" th:text="${item.id}"></td>
             <td th:id="city_+${item.city}" th:text="${item.city}"></td>
@@ -79,7 +79,44 @@
         </tr>
         </tbody>
     </table>
+    <nav>
+        <ul class="pagination">
+            <li>
+                <a th:if="${not isFirstPage}" th:href="@{${'/'}(pageNum=${pageNum-1},pageSize=${pageSize})}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+                <a th:if="${isFirstPage}" href="javascript:void(0);" aria-label="Previous">
+                    <span th:disabled="true" aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <li th:each="pageNo : ${#numbers.sequence(pageNum, pageNum+navigatePages-1)}">
+
+                <a th:if="${pageNo le totalPages and pageNo eq pageNum}" href="javascript:void(0);">
+                    <span th:text="${pageNo}"></span>
+                </a>
+                <a th:if="${pageNo le totalPages and pageNo ne pageNum}"
+                   th:href="@{${'/'}(pageNum=${pageNo},pageSize=${pageSize})}">
+                    <span th:text="${pageNo}"></span>
+                </a>
+            </li>
+
+            <li>
+                <a th:if="${not isLastPage}" th:href="@{${'/'}(pageNum=${pageNum+1},pageSize=${pageSize})}"
+                   aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+                <a th:if="${isLastPage}" href="javascript:void(0);" aria-label="Next">
+                    <span th:disabled="true" aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
 </div>
+
+
 <div class="modal fade" id="quartzModal" tabindex="-1" role="dialog" aria-labelledby="quartzModalLabel"
      aria-hidden="true">
     <div class="modal-dialog">

@@ -1,6 +1,8 @@
 package cn.whu.wy.controller;
 
+import cn.whu.wy.entity.Weather;
 import cn.whu.wy.service.WeatherService;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,13 +21,6 @@ public class ModelController {
     @Autowired
     private WeatherService weatherService;
 
-
-    @GetMapping("/all")
-    public String index(Model model) {
-        model.addAttribute("weathers", weatherService.showAll());
-        return "index";
-    }
-
     /**
      * http://127.0.0.1:10086/?pageNum=1&pageSize=10
      *
@@ -37,8 +32,15 @@ public class ModelController {
     @GetMapping("/")
     public String index(Model model,
                         @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                        @RequestParam(value = "pageSize", defaultValue = "20") Integer pageSize) {
-        model.addAttribute("weathers", weatherService.show(pageNum, pageSize));
+                        @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize) {
+        PageInfo<Weather> pageInfo = weatherService.show(pageNum, pageSize);
+        model.addAttribute("pageInfo", pageInfo);
+        model.addAttribute("pageNum", pageInfo.getPageNum());
+        model.addAttribute("pageSize", pageInfo.getPageSize());
+        model.addAttribute("isFirstPage", pageInfo.isIsFirstPage());
+        model.addAttribute("totalPages", pageInfo.getPages());
+        model.addAttribute("navigatePages", pageInfo.getNavigatePages());
+        model.addAttribute("isLastPage", pageInfo.isIsLastPage());
         return "index";
     }
 
