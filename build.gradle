@@ -1,38 +1,40 @@
 plugins {
-    id 'org.springframework.boot' version '2.1.9.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'org.springframework.boot' version '2.6.7'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
 }
 
+group = 'cn.whu.wy'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
 
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:Greenwich.SR3"
+// for lombok
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
     }
 }
 
-group 'cn.whu.wy'
-version '1.0-SNAPSHOT'
-
-sourceCompatibility = 1.8
-
 repositories {
-    maven { url "https://maven.aliyun.com/repository/public" }
-//    mavenCentral()
+    maven { url 'https://maven.aliyun.com/repository/public/' }
+    mavenCentral()
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-    implementation 'tk.mybatis:mapper-spring-boot-starter:2.1.5'
-    implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:1.2.10'
-    runtimeOnly 'mysql:mysql-connector-java:8.0.11'
-    compile 'org.projectlombok:lombok:1.18.10'
-    annotationProcessor 'org.projectlombok:lombok:1.18.10'
-    testCompile 'org.projectlombok:lombok:1.18.10'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.10'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+    runtimeOnly 'mysql:mysql-connector-java'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    implementation 'tk.mybatis:mapper-spring-boot-starter:4.2.1'
+    implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:1.4.2'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
 }

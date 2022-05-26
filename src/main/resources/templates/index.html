@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>QUARTZ-CONSOLE</title>
+    <title>WEATHER-CONSOLE</title>
     <link href="/static/favicon.ico" type="image/x-icon" rel="shortcut icon">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <style type="text/css">
@@ -42,11 +42,8 @@
 <div class="container-fluid" style="padding-top: 15px;">
 
     <div class="head">
-        <div class="title">QUARTZ CONSOLE</div>
+        <div class="title">这城市那么空</div>
         <hr class="line">
-        <div class="btnRight">
-            <button type="button" class="btn btn-primary" id="nextPageBtn" data-toggle="modal">下一页</button>
-        </div>
     </div>
 
     <table class="table table-bordered">
@@ -114,71 +111,6 @@
         </ul>
     </nav>
 
-</div>
-
-
-<div class="modal fade" id="quartzModal" tabindex="-1" role="dialog" aria-labelledby="quartzModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="quartzModalLabel">cron create</h4>
-            </div>
-
-            <div class="modal-body">
-                <form id="mainForm" method="post" action="/api/saveOrUpdate?t=" enctype="multipart/form-data">
-                    <div>
-                        <input type="hidden" class="form-control" id="jobId" name="jobId"/>
-                        <div class="input-group">
-                            <span class="input-group-addon">job name</span>
-                            <input type="text" alias="no-edit" name="jobName" class="form-control" id="edit_name"/>
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon">job group</span>
-                            <input type="text" alias="no-edit" name="jobGroup" class="form-control" id="edit_group"/>
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon">job status</span>
-                            <select id="edit_status" name="jobStatus" class="form-control" data-size="10">
-                                <option value="NORMAL" selected="selected">NORMAL</option>
-                                <option value="PAUSED">PAUSED</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon">job description</span>
-                            <input type="text" alias="no-edit" name="desc" class="form-control" id="edit_desc"/>
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon">job type</span>
-                            <select id="edit_type" name="jobType" class="form-control" data-size="10">
-                                <option value="java" selected="selected">java</option>
-                                <option value="dynamic">dynamic-class</option>
-                                <option value="shell">shell</option>
-                            </select>
-                        </div>
-                        <div class="input-group" style="display: none" id="classFile">
-                            <span class="input-group-addon">upload file</span>
-                            <input type="file" alias="no-edit" name="classFile" class="form-control" id="edit_file"/>
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon">job content</span>
-                            <input type="text" alias="no-edit" name="content" class="form-control" id="edit_content"/>
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon">cron expression</span>
-                            <input type="text" alias="no-edit" name="cronExpression" class="form-control"
-                                   id="cronExpression"/>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
-                        <button type="button" class="btn btn-primary" id="save">save</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 </div>
 </body>
 </html>
